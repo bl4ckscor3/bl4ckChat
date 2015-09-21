@@ -18,38 +18,43 @@ public class ButtonListener implements EventHandler<ActionEvent>
 	@Override
 	public void handle(ActionEvent event)
 	{
+		boolean fail = false;
+
 		if(event.getSource() == buttons.get("network_connect"))
 		{
-			if(bl4ckChat.nameField.equals(""))
+			if(bl4ckChat.nameField.getText().equals(""))
 			{
 				System.out.println("Please fill out the name field.");
-				return;
+				fail = true;
 			}
-			
-			if(bl4ckChat.networkField.equals(""))
+
+			if(bl4ckChat.networkField.getText().equals(""))
 			{
 				System.out.println("Please fill out the network field.");
-				return;
+				fail = true;
 			}
-			
-			if(bl4ckChat.portField.equals(""))
+
+			if(bl4ckChat.portField.getText().equals(""))
 				bl4ckChat.portField.setText("6669");
-			
-			try
+
+			if(!fail)
 			{
-				Configuration<PircBotX> config = new Configuration.Builder<PircBotX>()
-						.setName(bl4ckChat.nameField.getText())
-						.setLogin(bl4ckChat.nameField.getText())
-						.setServer(bl4ckChat.networkField.getText(), Integer.parseInt(bl4ckChat.portField.getText()))
-						.setAutoNickChange(true)
-						.setMessageDelay(0)
-						.buildConfiguration();
-				Reference.bot = new PircBotX(config);
-				Reference.bot.startBot();
-			}
-			catch(Exception e)
-			{
-				e.printStackTrace();
+				try
+				{
+					Configuration<PircBotX> config = new Configuration.Builder<PircBotX>()
+							.setName(bl4ckChat.nameField.getText())
+							.setLogin(bl4ckChat.nameField.getText())
+							.setServer(bl4ckChat.networkField.getText(), Integer.parseInt(bl4ckChat.portField.getText()))
+							.setAutoNickChange(true)
+							.setMessageDelay(0)
+							.buildConfiguration();
+					Reference.bot = new PircBotX(config);
+					Reference.bot.startBot();
+				}
+				catch(Exception e)
+				{
+					e.printStackTrace();
+				}
 			}
 		}
 		else
