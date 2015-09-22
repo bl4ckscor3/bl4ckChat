@@ -1,6 +1,7 @@
 package bl4ckscor3.misc.bl4ckchat.core;
 
 import bl4ckscor3.misc.bl4ckchat.custom.CustomButton;
+import bl4ckscor3.misc.bl4ckchat.custom.CustomCheckBox;
 import bl4ckscor3.misc.bl4ckchat.custom.CustomLabel;
 import bl4ckscor3.misc.bl4ckchat.custom.CustomNumberTextField;
 import bl4ckscor3.misc.bl4ckchat.custom.CustomPasswordField;
@@ -20,6 +21,7 @@ public class bl4ckChat extends Application
 	public static CustomNumberTextField portField = new CustomNumberTextField();
 	public static CustomPasswordField nickservField = new CustomPasswordField();
 	public static CustomTextField channelField = new CustomTextField();
+	public static CustomCheckBox sslBox = new CustomCheckBox("Use SSL connection");
 	
 	public static void main(String[] args)
 	{
@@ -72,8 +74,11 @@ public class bl4ckChat extends Application
 		layout.getChildren().add(channelLabel);
 		layout.getChildren().add(channelField);
 		
+		sslBox.setPosition(30, 493);
+		layout.getChildren().add(sslBox);
+		
 		connect.register("network_connect");
-		connect.setPosition(400, 490);
+		connect.setPosition(230, 490);
 		connect.setOnAction(Reference.buttonListener);
 		layout.getChildren().add(connect);
 

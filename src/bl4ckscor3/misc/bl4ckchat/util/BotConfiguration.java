@@ -7,14 +7,16 @@ public class BotConfiguration
 	private int port;
 	private String nickserv;
 	private String[] channels;
+	private boolean ssl;
 
-	public BotConfiguration(String na, String ne, String p, String ni, String channel)
+	public BotConfiguration(String na, String ne, String p, String ni, String channel, boolean s)
 	{
 		name = na;
 		network = ne;
 		port = p.equals("") ? 0 : Integer.parseInt(p);
 		nickserv = ni;
 		channels = channel.split(",");
+		ssl = s;
 	}
 
 	public void setName(String n)
@@ -65,5 +67,10 @@ public class BotConfiguration
 	public String[] getChannels()
 	{
 		return channels;
+	}
+	
+	public boolean useSsl()
+	{
+		return ssl;
 	}
 }

@@ -6,6 +6,7 @@ import javax.swing.SwingUtilities;
 
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
+import org.pircbotx.UtilSSLSocketFactory;
 
 import bl4ckscor3.misc.bl4ckchat.core.MainChatWindow;
 import bl4ckscor3.misc.bl4ckchat.core.bl4ckChat;
@@ -46,7 +47,7 @@ public class ButtonListener implements EventHandler<ActionEvent>
 
 	private void network_connect(ActionEvent event)
 	{
-		final BotConfiguration cfg = new BotConfiguration(bl4ckChat.nameField.getText(), bl4ckChat.networkField.getText(), bl4ckChat.portField.getText(), bl4ckChat.nickservField.getText(), bl4ckChat.channelField.getText());
+		final BotConfiguration cfg = new BotConfiguration(bl4ckChat.nameField.getText(), bl4ckChat.networkField.getText(), bl4ckChat.portField.getText(), bl4ckChat.nickservField.getText(), bl4ckChat.channelField.getText(), !bl4ckChat.sslBox.isDisabled());
 		
 		stage.close();
 		new MainChatWindow(stage);
@@ -92,6 +93,9 @@ public class ButtonListener implements EventHandler<ActionEvent>
 							config.addAutoJoinChannel(s);
 						}
 					}
+					
+					if(cfg.useSsl())
+						config.setSocketFactory(new UtilSSLSocketFactory().trustAllCertificates());
 					
 					Reference.bot = new PircBotX(config.buildConfiguration());
 					Reference.isBotStarted = true;
