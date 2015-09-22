@@ -21,19 +21,23 @@ public class ButtonListener implements EventHandler<ActionEvent>
 	{
 		try
 		{
-			getClass().getDeclaredMethod(buttons.get(event.getSource()), null).invoke(this, null);
+			getClass().getDeclaredMethod(buttons.get(event.getSource()), ActionEvent.class).invoke(this, event);
 		}
 		catch(IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e)
 		{
 			e.printStackTrace();
 		}
-		catch(NoSuchMethodException e)
+		catch(NullPointerException e)
 		{
 			System.out.println("BUTTON NOT REGISTERED");
 		}
+		catch(NoSuchMethodException e)
+		{
+			System.out.println("METHOD FOR BUTTON NOT DECLARED");
+		}
 	}
 
-	private void network_connect()
+	private void network_connect(ActionEvent event)
 	{
 		boolean fail = false;
 		
