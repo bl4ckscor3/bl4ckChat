@@ -1,5 +1,6 @@
-package bl4ckscor3.misc.bl4ckchat.util;
+package bl4ckscor3.misc.bl4ckchat.custom;
 
+import bl4ckscor3.misc.bl4ckchat.util.Reference;
 import javafx.scene.control.Label;
 
 public class CustomLabel extends Label

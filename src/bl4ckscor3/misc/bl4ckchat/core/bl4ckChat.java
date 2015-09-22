@@ -1,10 +1,11 @@
 package bl4ckscor3.misc.bl4ckchat.core;
 
+import bl4ckscor3.misc.bl4ckchat.custom.CustomButton;
+import bl4ckscor3.misc.bl4ckchat.custom.CustomLabel;
+import bl4ckscor3.misc.bl4ckchat.custom.CustomNumberTextField;
+import bl4ckscor3.misc.bl4ckchat.custom.CustomPasswordField;
+import bl4ckscor3.misc.bl4ckchat.custom.CustomTextField;
 import bl4ckscor3.misc.bl4ckchat.listener.CloseListener;
-import bl4ckscor3.misc.bl4ckchat.listener.NumberTextFieldListener;
-import bl4ckscor3.misc.bl4ckchat.util.CustomButton;
-import bl4ckscor3.misc.bl4ckchat.util.CustomLabel;
-import bl4ckscor3.misc.bl4ckchat.util.CustomTextField;
 import bl4ckscor3.misc.bl4ckchat.util.Reference;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -16,8 +17,8 @@ public class bl4ckChat extends Application
 {
 	public static CustomTextField nameField = new CustomTextField();
 	public static CustomTextField networkField = new CustomTextField();
-	public static CustomTextField portField = new CustomTextField();
-	public static CustomTextField nickservField = new CustomTextField();
+	public static CustomNumberTextField portField = new CustomNumberTextField();
+	public static CustomPasswordField nickservField = new CustomPasswordField();
 	public static CustomTextField channelField = new CustomTextField();
 	
 	public static void main(String[] args)
@@ -58,7 +59,6 @@ public class bl4ckChat extends Application
 
 		portLabel.setPosition(30, 113);
 		portField.setPosition(160, 110);
-		portField.textProperty().addListener(new NumberTextFieldListener());
 		layout.getChildren().add(portLabel);
 		layout.getChildren().add(portField);
 
