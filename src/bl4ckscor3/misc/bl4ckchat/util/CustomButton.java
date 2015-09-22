@@ -15,7 +15,7 @@ public class CustomButton extends Button
 	
 	public void register(String id)
 	{
-		ButtonListener.add(id, this);
+		ButtonListener.add(this, id);
 	}
 	
 	public void setPosition(double x, double y)

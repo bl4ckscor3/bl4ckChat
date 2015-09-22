@@ -1,5 +1,6 @@
 package bl4ckscor3.misc.bl4ckchat.listener;
 
+import java.lang.reflect.InvocationTargetException;
 
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
@@ -13,58 +14,69 @@ import javafx.scene.control.Button;
 
 public class ButtonListener implements EventHandler<ActionEvent>
 {
-	private static final ArrayMap<String,Button> buttons = new ArrayMap<String,Button>();
+	private static final ArrayMap<Button,String> buttons = new ArrayMap<Button,String>();
 
 	@Override
 	public void handle(ActionEvent event)
 	{
-		boolean fail = false;
-
-		if(event.getSource() == buttons.get("network_connect"))
+		try
 		{
-			if(bl4ckChat.nameField.getText().equals(""))
-			{
-				System.out.println("Please fill out the name field.");
-				fail = true;
-			}
-
-			if(bl4ckChat.networkField.getText().equals(""))
-			{
-				System.out.println("Please fill out the network field.");
-				fail = true;
-			}
-
-			if(bl4ckChat.portField.getText().equals(""))
-				bl4ckChat.portField.setText("6669");
-
-			if(!fail)
-			{
-				try
-				{
-					Configuration<PircBotX> config = new Configuration.Builder<PircBotX>()
-							.setName(bl4ckChat.nameField.getText())
-							.setLogin(bl4ckChat.nameField.getText())
-							.setServer(bl4ckChat.networkField.getText(), Integer.parseInt(bl4ckChat.portField.getText()))
-							.setAutoNickChange(true)
-							.setMessageDelay(0)
-							.buildConfiguration();
-					Reference.bot = new PircBotX(config);
-					Reference.bot.startBot();
-				}
-				catch(Exception e)
-				{
-					e.printStackTrace();
-				}
-			}
+			getClass().getDeclaredMethod(buttons.get(event.getSource()), null).invoke(this, null);
 		}
-		else
+		catch(IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e)
+		{
+			e.printStackTrace();
+		}
+		catch(NoSuchMethodException e)
+		{
 			System.out.println("BUTTON NOT REGISTERED");
+		}
 	}
 
-	public static void add(String id, Button button)
+	private void network_connect()
+	{
+		boolean fail = false;
+		
+		if(bl4ckChat.nameField.getText().equals(""))
+		{
+			System.out.println("Please fill out the name field.");
+			fail = true;
+		}
+
+		if(bl4ckChat.networkField.getText().equals(""))
+		{
+			System.out.println("Please fill out the network field.");
+			fail = true;
+		}
+
+		if(bl4ckChat.portField.getText().equals(""))
+			bl4ckChat.portField.setText("6669");
+
+		if(!fail)
+		{
+			try
+			{
+				Configuration<PircBotX> config = new Configuration.Builder<PircBotX>()
+						.setName(bl4ckChat.nameField.getText())
+						.setLogin(bl4ckChat.nameField.getText())
+						.setServer(bl4ckChat.networkField.getText(), Integer.parseInt(bl4ckChat.portField.getText()))
+						.setAutoNickChange(false)
+						.setMessageDelay(0)
+						.buildConfiguration();
+				Reference.bot = new PircBotX(config);
+				Reference.bot.startBot();
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public static void add(Button button, String id)
 	{
 		if(!buttons.containsKey(id))
-			buttons.put(id, button);
+			buttons.put(button, id);
 		else
 			System.out.println("ID " + id + " ALREADY REGISTERED");
 	}
