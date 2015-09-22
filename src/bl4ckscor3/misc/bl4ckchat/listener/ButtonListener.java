@@ -2,20 +2,27 @@ package bl4ckscor3.misc.bl4ckchat.listener;
 
 import java.lang.reflect.InvocationTargetException;
 
+import javax.swing.SwingUtilities;
+
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
 
+import bl4ckscor3.misc.bl4ckchat.core.MainChatWindow;
 import bl4ckscor3.misc.bl4ckchat.core.bl4ckChat;
+import bl4ckscor3.misc.bl4ckchat.util.BotConfiguration;
 import bl4ckscor3.misc.bl4ckchat.util.Reference;
 import bl4ckscor3.misc.bl4ckchat.util.android.ArrayMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
+@SuppressWarnings("unused")
 public class ButtonListener implements EventHandler<ActionEvent>
 {
 	private static final ArrayMap<Button,String> buttons = new ArrayMap<Button,String>();
-
+	private static Stage stage;
+	
 	@Override
 	public void handle(ActionEvent event)
 	{
@@ -39,49 +46,67 @@ public class ButtonListener implements EventHandler<ActionEvent>
 
 	private void network_connect(ActionEvent event)
 	{
-		boolean fail = false;
+		final BotConfiguration cfg = new BotConfiguration(bl4ckChat.nameField.getText(), bl4ckChat.networkField.getText(), bl4ckChat.portField.getText(), bl4ckChat.nickservField.getText());
 		
-		if(bl4ckChat.nameField.getText().equals(""))
-		{
-			System.out.println("Please fill out the name field.");
-			fail = true;
-		}
-
-		if(bl4ckChat.networkField.getText().equals(""))
-		{
-			System.out.println("Please fill out the network field.");
-			fail = true;
-		}
-
-		if(bl4ckChat.portField.getText().equals(""))
-			bl4ckChat.portField.setText("6669");
-
-		if(!fail)
-		{
-			try
+		stage.close();
+		new MainChatWindow(stage);
+		
+		SwingUtilities.invokeLater(() -> {
+			boolean fail = false;
+			
+			if(cfg.getName().equals(""))
 			{
-				Configuration<PircBotX> config = new Configuration.Builder<PircBotX>()
-						.setName(bl4ckChat.nameField.getText())
-						.setLogin(bl4ckChat.nameField.getText())
-						.setServer(bl4ckChat.networkField.getText(), Integer.parseInt(bl4ckChat.portField.getText()))
-						.setAutoNickChange(false)
-						.setMessageDelay(0)
-						.buildConfiguration();
-				Reference.bot = new PircBotX(config);
-				Reference.bot.startBot();
+				cfg.setName("bl4ckChat");
+//				System.out.println("Please fill out the name field.");
+//				fail = true;
 			}
-			catch(Exception e)
+
+			if(cfg.getNetwork().equals(""))
 			{
-				e.printStackTrace();
+				cfg.setNetwork("irc.esper.net");
+//				System.out.println("Please fill out the network field.");
+//				fail = true;
 			}
-		}
+
+			if(cfg.getPort() == 0)
+				cfg.setPort(6669);
+
+			if(!fail)
+			{
+				try
+				{
+					Configuration.Builder<PircBotX> config = new Configuration.Builder<PircBotX>()
+							.setName(cfg.getName())
+							.setLogin(cfg.getName())
+							.setServer(cfg.getNetwork(), cfg.getPort())
+							.setAutoNickChange(false)
+							.setMessageDelay(0);
+					
+					if(!cfg.getNickserv().equals(""))
+						config.setNickservPassword(cfg.getNickserv());
+					
+					Reference.bot = new PircBotX(config.buildConfiguration());
+					Reference.isBotStarted = true;
+					Reference.bot.startBot();
+				}
+				catch(Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+		});
 	}
-	
-	public static void add(Button button, String id)
+
+	public void add(Button button, String id)
 	{
-		if(!buttons.containsKey(id))
+		if(!buttons.containsValue(id))
 			buttons.put(button, id);
 		else
 			System.out.println("ID " + id + " ALREADY REGISTERED");
+	}
+	
+	public void setStage(Stage s)
+	{
+		stage = s;
 	}
 }

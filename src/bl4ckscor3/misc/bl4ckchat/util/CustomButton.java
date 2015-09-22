@@ -1,6 +1,5 @@
 package bl4ckscor3.misc.bl4ckchat.util;
 
-import bl4ckscor3.misc.bl4ckchat.listener.ButtonListener;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 
@@ -15,7 +14,7 @@ public class CustomButton extends Button
 	
 	public void register(String id)
 	{
-		ButtonListener.add(this, id);
+		Reference.buttonListener.add(this, id);
 	}
 	
 	public void setPosition(double x, double y)

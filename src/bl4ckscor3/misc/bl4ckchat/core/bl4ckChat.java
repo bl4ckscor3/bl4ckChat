@@ -1,6 +1,6 @@
 package bl4ckscor3.misc.bl4ckchat.core;
 
-import bl4ckscor3.misc.bl4ckchat.listener.ButtonListener;
+import bl4ckscor3.misc.bl4ckchat.listener.CloseListener;
 import bl4ckscor3.misc.bl4ckchat.listener.NumberTextFieldListener;
 import bl4ckscor3.misc.bl4ckchat.util.CustomButton;
 import bl4ckscor3.misc.bl4ckchat.util.CustomLabel;
@@ -17,6 +17,7 @@ public class bl4ckChat extends Application
 	public static CustomTextField nameField = new CustomTextField();
 	public static CustomTextField networkField = new CustomTextField();
 	public static CustomTextField portField = new CustomTextField();
+	public static CustomTextField nickservField = new CustomTextField();
 	
 	public static void main(String[] args)
 	{
@@ -30,40 +31,48 @@ public class bl4ckChat extends Application
 		CustomLabel nameLabel = new CustomLabel("Your name:");
 		CustomLabel networkLabel = new CustomLabel("Network:");
 		CustomLabel portLabel = new CustomLabel("Port:");
+		CustomLabel nickservLabel = new CustomLabel("NickServ Password:");
 		CustomButton connect = new CustomButton("Connect...");
 		Pane layout = new Pane();
 		Scene scene;
 
 		stage.setTitle("bl4ckChat Network Setup ("+ Reference.VERSION +")");
 		stage.setResizable(false);
-
+		stage.setOnCloseRequest(new CloseListener());
+		
 		header.setPosition(190, 10);
 		header.setFont(new Font("Arial", 18));
 		layout.getChildren().add(header);
 
 		nameLabel.setPosition(30, 53);
-		nameField.setPosition(110, 50);
+		nameField.setPosition(160, 50);
 		layout.getChildren().add(nameLabel);
 		layout.getChildren().add(nameField);
 
 		networkLabel.setPosition(30, 83);
-		networkField.setPosition(110, 80);
+		networkField.setPosition(160, 80);
 		layout.getChildren().add(networkLabel);
 		layout.getChildren().add(networkField);
 
 		portLabel.setPosition(30, 113);
-		portField.setPosition(110, 110);
+		portField.setPosition(160, 110);
 		portField.textProperty().addListener(new NumberTextFieldListener());
 		layout.getChildren().add(portLabel);
 		layout.getChildren().add(portField);
 
+		nickservLabel.setPosition(30, 143);
+		nickservField.setPosition(160, 140);
+		layout.getChildren().add(nickservLabel);
+		layout.getChildren().add(nickservField);
+		
 		connect.register("network_connect");
 		connect.setPosition(400, 490);
-		connect.setOnAction(new ButtonListener());
+		connect.setOnAction(Reference.buttonListener);
 		layout.getChildren().add(connect);
 
 		scene = new Scene(layout, 500, 600);
 		stage.setScene(scene);
+		Reference.buttonListener.setStage(stage);
 		stage.show();
 	}
 }
