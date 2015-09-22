@@ -46,7 +46,7 @@ public class ButtonListener implements EventHandler<ActionEvent>
 
 	private void network_connect(ActionEvent event)
 	{
-		final BotConfiguration cfg = new BotConfiguration(bl4ckChat.nameField.getText(), bl4ckChat.networkField.getText(), bl4ckChat.portField.getText(), bl4ckChat.nickservField.getText());
+		final BotConfiguration cfg = new BotConfiguration(bl4ckChat.nameField.getText(), bl4ckChat.networkField.getText(), bl4ckChat.portField.getText(), bl4ckChat.nickservField.getText(), bl4ckChat.channelField.getText());
 		
 		stage.close();
 		new MainChatWindow(stage);
@@ -84,6 +84,14 @@ public class ButtonListener implements EventHandler<ActionEvent>
 					
 					if(!cfg.getNickserv().equals(""))
 						config.setNickservPassword(cfg.getNickserv());
+					
+					if(cfg.getChannels().length != 0)
+					{
+						for(String s : cfg.getChannels())
+						{
+							config.addAutoJoinChannel(s);
+						}
+					}
 					
 					Reference.bot = new PircBotX(config.buildConfiguration());
 					Reference.isBotStarted = true;

@@ -6,14 +6,15 @@ public class BotConfiguration
 	private String network;
 	private int port;
 	private String nickserv;
+	private String[] channels;
 
-	public BotConfiguration(String na, String ne, String p, String ni)
+	public BotConfiguration(String na, String ne, String p, String ni, String channel)
 	{
 		name = na;
 		network = ne;
-		
 		port = p.equals("") ? 0 : Integer.parseInt(p);
 		nickserv = ni;
+		channels = channel.split(",");
 	}
 
 	public void setName(String n)
@@ -35,6 +36,11 @@ public class BotConfiguration
 	{
 		nickserv = n;
 	}
+	
+	public void setChannels(String c)
+	{
+		channels = c.split(",");
+	}
 
 	public String getName()
 	{
@@ -54,5 +60,10 @@ public class BotConfiguration
 	public String getNickserv()
 	{
 		return nickserv;
+	}
+	
+	public String[] getChannels()
+	{
+		return channels;
 	}
 }

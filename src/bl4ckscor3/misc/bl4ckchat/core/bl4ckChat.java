@@ -18,6 +18,7 @@ public class bl4ckChat extends Application
 	public static CustomTextField networkField = new CustomTextField();
 	public static CustomTextField portField = new CustomTextField();
 	public static CustomTextField nickservField = new CustomTextField();
+	public static CustomTextField channelField = new CustomTextField();
 	
 	public static void main(String[] args)
 	{
@@ -32,6 +33,7 @@ public class bl4ckChat extends Application
 		CustomLabel networkLabel = new CustomLabel("Network:");
 		CustomLabel portLabel = new CustomLabel("Port:");
 		CustomLabel nickservLabel = new CustomLabel("NickServ Password:");
+		CustomLabel channelLabel = new CustomLabel("Channels:");
 		CustomButton connect = new CustomButton("Connect...");
 		Pane layout = new Pane();
 		Scene scene;
@@ -64,6 +66,11 @@ public class bl4ckChat extends Application
 		nickservField.setPosition(160, 140);
 		layout.getChildren().add(nickservLabel);
 		layout.getChildren().add(nickservField);
+	
+		channelLabel.setPosition(30, 173);
+		channelField.setPosition(160, 170);
+		layout.getChildren().add(channelLabel);
+		layout.getChildren().add(channelField);
 		
 		connect.register("network_connect");
 		connect.setPosition(400, 490);
