@@ -21,7 +21,7 @@ public class bl4ckChat extends Application
 	public static CustomNumberTextField portField = new CustomNumberTextField();
 	public static CustomPasswordField nickservField = new CustomPasswordField();
 	public static CustomTextField channelField = new CustomTextField();
-	public static CustomCheckBox sslBox = new CustomCheckBox("Use SSL connection");
+	public static CustomCheckBox sslBox = new CustomCheckBox("Use SSL connection", "Make sure to put in the correct SSL port of your network.");
 	
 	public static void main(String[] args)
 	{
@@ -32,11 +32,11 @@ public class bl4ckChat extends Application
 	public void start(Stage stage) throws Exception //stage is the whole window and scene is what is inside
 	{
 		CustomLabel header = new CustomLabel("Network Setup");
-		CustomLabel nameLabel = new CustomLabel("Your name:");
+		CustomLabel nameLabel = new CustomLabel("Your name:", "This will be your ident, too.");
 		CustomLabel networkLabel = new CustomLabel("Network:");
-		CustomLabel portLabel = new CustomLabel("Port:");
+		CustomLabel portLabel = new CustomLabel("Port:", "If you use SSL, make sure to put in the correct SSL port of your network.");
 		CustomLabel nickservLabel = new CustomLabel("NickServ Password:");
-		CustomLabel channelLabel = new CustomLabel("Channels:");
+		CustomLabel channelLabel = new CustomLabel("Channels:", "Seperate multiple channels with a comma.");
 		CustomButton connect = new CustomButton("Connect...");
 		Pane layout = new Pane();
 		Scene scene;

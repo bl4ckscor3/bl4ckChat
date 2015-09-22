@@ -11,7 +11,7 @@ public class CustomNumberTextField extends CustomTextField implements ChangeList
 		super();
 		
 		textProperty().addListener(this);
-	}
+	}	
 	
 	@Override
 	public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
