@@ -5,15 +5,17 @@ public class BotConfiguration
 	private String name;
 	private String network;
 	private int port;
+	private String serverPassword;
 	private String nickserv;
 	private String[] channels;
 	private boolean ssl;
 
-	public BotConfiguration(String na, String ne, String p, String ni, String channel, boolean s)
+	public BotConfiguration(String na, String ne, String p, String sp, String ni, String channel, boolean s)
 	{
 		name = na;
 		network = ne;
 		port = p.equals("") ? 0 : Integer.parseInt(p);
+		serverPassword = sp;
 		nickserv = ni;
 		channels = channel.split(",");
 		ssl = s;
@@ -34,16 +36,6 @@ public class BotConfiguration
 		port = p;
 	}
 
-	public void setNickserv(String n)
-	{
-		nickserv = n;
-	}
-	
-	public void setChannels(String c)
-	{
-		channels = c.split(",");
-	}
-
 	public String getName()
 	{
 		return name;
@@ -57,6 +49,11 @@ public class BotConfiguration
 	public int getPort()
 	{
 		return port;
+	}
+	
+	public String getServerPassword()
+	{
+		return serverPassword;
 	}
 	
 	public String getNickserv()

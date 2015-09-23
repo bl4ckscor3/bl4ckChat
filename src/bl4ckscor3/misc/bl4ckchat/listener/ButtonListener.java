@@ -47,7 +47,8 @@ public class ButtonListener implements EventHandler<ActionEvent>
 
 	private void network_connect(ActionEvent event)
 	{
-		final BotConfiguration cfg = new BotConfiguration(bl4ckChat.nameField.getText(), bl4ckChat.networkField.getText(), bl4ckChat.portField.getText(), bl4ckChat.nickservField.getText(), bl4ckChat.channelField.getText(), bl4ckChat.sslBox.isSelected());
+		final BotConfiguration cfg = new BotConfiguration(bl4ckChat.nameField.getText(), bl4ckChat.networkField.getText(), bl4ckChat.portField.getText(), bl4ckChat.serverPasswordField.getText(),
+				bl4ckChat.nickservField.getText(), bl4ckChat.channelField.getText(), bl4ckChat.sslBox.isSelected());
 		
 		stage.close();
 		new MainChatWindow(stage);
@@ -94,6 +95,9 @@ public class ButtonListener implements EventHandler<ActionEvent>
 						}
 					}
 					
+					if(!cfg.getServerPassword().equals(""))
+						config.setServerPassword(cfg.getServerPassword());
+						
 					if(cfg.useSsl())
 						config.setSocketFactory(new UtilSSLSocketFactory().trustAllCertificates()); //need to trust all certificates because else pircbotx will error out for some reason
 					

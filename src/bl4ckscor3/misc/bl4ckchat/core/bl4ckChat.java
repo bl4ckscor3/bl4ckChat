@@ -19,9 +19,12 @@ public class bl4ckChat extends Application
 	public static CustomTextField nameField = new CustomTextField();
 	public static CustomTextField networkField = new CustomTextField();
 	public static CustomNumberTextField portField = new CustomNumberTextField();
+	public static CustomPasswordField serverPasswordField = new CustomPasswordField();
 	public static CustomPasswordField nickservField = new CustomPasswordField();
 	public static CustomTextField channelField = new CustomTextField();
 	public static CustomCheckBox sslBox = new CustomCheckBox("Use SSL connection", "Make sure to put in the correct SSL port of your network.");
+	private static boolean shouldIncrementByThree = false;
+	private static int currentYPosition = 30;
 	
 	public static void main(String[] args)
 	{
@@ -35,6 +38,7 @@ public class bl4ckChat extends Application
 		CustomLabel nameLabel = new CustomLabel("Your name:", "This will be your ident, too.");
 		CustomLabel networkLabel = new CustomLabel("Network:");
 		CustomLabel portLabel = new CustomLabel("Port:", "If you use SSL, make sure to put in the correct SSL port of your network.");
+		CustomLabel serverPasswordLabel = new CustomLabel("Server password:");
 		CustomLabel nickservLabel = new CustomLabel("NickServ Password:");
 		CustomLabel channelLabel = new CustomLabel("Channels:", "Seperate multiple channels with a comma.");
 		CustomButton connect = new CustomButton("Connect...");
@@ -43,34 +47,39 @@ public class bl4ckChat extends Application
 
 		stage.setTitle("bl4ckChat Network Setup ("+ Reference.VERSION +")");
 		stage.setResizable(false);
-		stage.setOnCloseRequest(new CloseListener());
+		stage.setOnCloseRequest(new CloseListener());	
 		
 		header.setPosition(190, 10);
 		header.setFont(new Font("Arial", 18));
 		layout.getChildren().add(header);
 
-		nameLabel.setPosition(30, 53);
-		nameField.setPosition(160, 50);
+		nameField.setPosition(160, getNextY());
+		nameLabel.setPosition(30, getNextY());
 		layout.getChildren().add(nameLabel);
 		layout.getChildren().add(nameField);
 
-		networkLabel.setPosition(30, 83);
-		networkField.setPosition(160, 80);
+		networkField.setPosition(160, getNextY());
+		networkLabel.setPosition(30, getNextY());
 		layout.getChildren().add(networkLabel);
 		layout.getChildren().add(networkField);
 
-		portLabel.setPosition(30, 113);
-		portField.setPosition(160, 110);
+		portField.setPosition(160, getNextY());
+		portLabel.setPosition(30, getNextY());
 		layout.getChildren().add(portLabel);
 		layout.getChildren().add(portField);
 
-		nickservLabel.setPosition(30, 143);
-		nickservField.setPosition(160, 140);
+		serverPasswordField.setPosition(160, getNextY());
+		serverPasswordLabel.setPosition(30, getNextY());
+		layout.getChildren().add(serverPasswordLabel);
+		layout.getChildren().add(serverPasswordField);
+		
+		nickservField.setPosition(160, getNextY());
+		nickservLabel.setPosition(30, getNextY());
 		layout.getChildren().add(nickservLabel);
 		layout.getChildren().add(nickservField);
-	
-		channelLabel.setPosition(30, 173);
-		channelField.setPosition(160, 170);
+
+		channelField.setPosition(160, getNextY());
+		channelLabel.setPosition(30, getNextY());
 		layout.getChildren().add(channelLabel);
 		layout.getChildren().add(channelField);
 		
@@ -86,5 +95,16 @@ public class bl4ckChat extends Application
 		stage.setScene(scene);
 		Reference.buttonListener.setStage(stage);
 		stage.show();
+	}
+	
+	private static int getNextY()
+	{
+		if(shouldIncrementByThree)
+			currentYPosition += 3;
+		else
+			currentYPosition += 30;
+
+		shouldIncrementByThree = !shouldIncrementByThree;
+		return currentYPosition;
 	}
 }
