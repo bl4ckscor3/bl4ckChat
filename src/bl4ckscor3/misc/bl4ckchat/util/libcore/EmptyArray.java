@@ -29,6 +29,7 @@ public final class EmptyArray {
 	public static final Throwable[] THROWABLE = new Throwable[0];
 	public static final StackTraceElement[] STACK_TRACE_ELEMENT = new StackTraceElement[0];
 	public static final java.lang.reflect.Type[] TYPE = new java.lang.reflect.Type[0];
+	@SuppressWarnings("rawtypes")
 	public static final java.lang.reflect.TypeVariable[] TYPE_VARIABLE =
 			new java.lang.reflect.TypeVariable[0];
 }
